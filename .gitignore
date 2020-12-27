@@ -1,0 +1,7 @@
+__pycache__/
+.DS_Store
+build
+dist
+*.egg-info
+*.wav
+.gitignore

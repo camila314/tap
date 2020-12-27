@@ -1,4 +1,4 @@
-![tap logo](github_assets/taplogo.png)
+![tap logo](github_assets/TapLogo.png) 
 ## Tap: the best click bot for Geometry Dash
 Tap an automate fake click tool coded in python with the goal of making the most realistic clicks possible for a given level.
 ### Tap only works for osXbot files

@@ -26,7 +26,7 @@ def mag2db(mag):
 	return 20.*math.log10(mag)
 
 def nerve(x):
-	return math.tanh(math.exp(0.1*x -0.9))/2.
+	return math.tanh(math.exp(0.1*(x-70.) -0.9))/2.
 
 class Click(object):
 	def __init__(self, data):

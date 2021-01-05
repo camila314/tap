@@ -77,7 +77,7 @@ def main():
 		exit()
 	clicks = []
 	for i in clicks_:
-		if clicks==[] or clicks[-1].position<i.position:
+		if clicks==[] or (clicks[-1].position<i.position and i.position < 3600):
 			clicks.append(i)
 		else:
 			break

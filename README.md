@@ -10,7 +10,7 @@ To get tap working, you first need to install the modules inside `requirements.t
 ### Script
 Tap accepts python 3 only. For Mac, run `run.py` with your python interpreter. For Windows, run `run_windows.py` with your python interpreter.
 
-### Executable
+### Executable (Mac only)
 For building the executable, you need to go into the TapPackage folder and run the Makefile. That should be all it takes to build the executable.
 
 

@@ -1,0 +1,8 @@
+pydub
+tqdm
+setuptools
+requests
+colorama
+pywin32
+patool
+pyunpack

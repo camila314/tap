@@ -7,15 +7,16 @@ import math
 import sys
 import os
 import glob
+from pathlib import Path
 
 def getRandomPath(hold=True, soft=False):
 	s_char = 's' if soft else ''
 	if hold:
-		paths = glob.glob(os.path.join(os.path.expanduser('~'),"Desktop/holds/{}*.wav".format(s_char)))
+		paths = glob.glob(str(Path.home() / "Desktop" / "holds" / "{}*.wav".format(s_char)))
 		if len(paths) == 0:
-			paths = glob.glob(os.path.join(os.path.expanduser('~'),"Desktop/holds/*.wav"))
+			paths = glob.glob(str(Path.home() / "Desktop" / "holds" / "*.wav"))
 	else:
-		paths = glob.glob(os.path.join(os.path.expanduser('~'),"Desktop/releases/*.wav"))
+		paths = glob.glob(str(Path.home() / "Desktop" / "releases" / "*.wav"))
 	return random.choice(paths)
 
 audLength = 1
@@ -69,7 +70,7 @@ class Click(object):
 
 def main():
 	global audLength	
-	macro = open(input("Drag the macro file here:").strip().replace('\\',''),'rb').read()
+	macro = open(input("Drag the macro file here:").strip(),'rb').read()
 	try:
 		clicks_ = list([Click(macro[i:i+16]) for i in range(0, len(macro), 16)])
 	except struct.error:
@@ -95,5 +96,7 @@ def main():
 				lastH = c
 			lastC = c
 			mainClip = mainClip.overlay(c.audio, position=c.position*1000)
-	mainClip.export(os.path.join(os.path.expanduser('~'),"Desktop/tapOutput.wav"))
+	mainClip.export(str(Path.home() / "Desktop" / "tapOutput.wav"))
 	print("Success. Check your desktop for the output file")
+if __name__ == '__main__':
+	main()

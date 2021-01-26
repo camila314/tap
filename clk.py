@@ -9,6 +9,21 @@ import os
 import glob
 from pathlib import Path
 
+def parse_xbot(dat):
+	out = b''
+	clicks = dat.split('\n')
+	fps = int(clicks[0][5:])
+	for i in clicks[2:]:
+		if len(i)<1: break
+
+		hold, pos = i.split(' ')
+
+		real_hold = True if int(hold)%2==1 else False
+		real_pos = float(pos)/fps
+
+		out += struct.pack('di?xxx', real_pos, 32, real_hold)
+	return out
+
 def getRandomPath(hold=True, soft=False):
 	s_char = 's' if soft else ''
 	if hold:
@@ -72,6 +87,8 @@ def main():
 	global audLength	
 	macro = open(input("Drag the macro file here:").strip(),'rb').read()
 	try:
+		if macro.startswith(b'fps:'):
+			macro = parse_xbot(macro.decode().replace('\r\n','\n'))
 		clicks_ = list([Click(macro[i:i+16]) for i in range(0, len(macro), 16)])
 	except struct.error:
 		print('\u001b[31;1m[Error]\u001b[0m Invalid macro file')

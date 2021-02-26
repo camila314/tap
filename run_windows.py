@@ -63,7 +63,7 @@ def runit():
 			pass
 
 		# cleanup
-		shutil.rmtree(exec_path.parent)
+		#shutil.rmtree(exec_path.parent)
 		os.remove(save_location)
 	try:
 		os.makedirs(str(Path.home() / 'Desktop' / 'holds'))

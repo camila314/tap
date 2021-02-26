@@ -55,7 +55,7 @@ def runit():
 
 		Archive(str(save_location)).extractall(Path.home())
 
-		exec_path = Path(glob.glob(str(Path.home()/"ffmpeg*")))/"bin"
+		exec_path = Path(glob.glob(str(Path.home()/"ffmpeg*"))[0])/"bin"
 		os.rename(exec_path/"ffmpeg.exe", Path.home()/"ffmpeg.exe")
 		try:
 			os.rename(exec_path/"ffplay.exe", Path.home()/"ffplay.exe")

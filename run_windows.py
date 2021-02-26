@@ -55,7 +55,7 @@ def runit():
 
 		Archive(str(save_location)).extractall(Path.home())
 
-		exec_path = Path.home()/"ffmpeg-4.3.1-2021-01-01-full_build"/"bin"
+		exec_path = Path(glob.glob(str(Path.home()/"ffmpeg*")))/"bin"
 		os.rename(exec_path/"ffmpeg.exe", Path.home()/"ffmpeg.exe")
 		try:
 			os.rename(exec_path/"ffplay.exe", Path.home()/"ffplay.exe")
@@ -63,7 +63,7 @@ def runit():
 			pass
 
 		# cleanup
-		shutil.rmtree(Path.home()/"ffmpeg-4.3.1-2021-01-01-full_build")
+		shutil.rmtree(exec_path.parent)
 		os.remove(save_location)
 	try:
 		os.makedirs(str(Path.home() / 'Desktop' / 'holds'))

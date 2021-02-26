@@ -24,6 +24,17 @@ def parse_xbot(dat):
 		out += struct.pack('di?xxx', real_pos, 32, real_hold)
 	return out
 
+def parse_zbot(dat):
+	out = b''
+	delta, = struct.unpack("f", dat[:4])
+	dat = dat[8:]
+	print(delta)
+	for i in range(0, len(dat), 6):
+		frame, hold, p1 = struct.unpack("IBB", dat[i:i+6])
+		if frame>0:
+			out += struct.pack("di?BBB", frame*delta, 32, hold-0x30, 0,0,0)
+	return out
+
 def getRandomPath(hold=True, soft=False):
 	s_char = 's' if soft else ''
 	if hold:
@@ -84,11 +95,16 @@ class Click(object):
 		self.audio = self.audio._spawn(self.audio.raw_data, overrides={'frame_rate': int(self.audio.frame_rate * (2.0 ** octaves))})
 
 def main():
-	global audLength	
-	macro = open(input("Drag the macro file here:").strip(),'rb').read()
+	global audLength
+	ok = input("Drag the macro file here:").strip()	
+	macro = open(ok,'rb').read()
 	try:
 		if macro.startswith(b'fps:'):
 			macro = parse_xbot(macro.decode().replace('\r\n','\n'))
+		if ok.endswith("zbf"):
+			macro = parse_zbot(macro)
+			print("hi")
+		open("test.xgd", "wb").write(macro)
 		clicks_ = list([Click(macro[i:i+16]) for i in range(0, len(macro), 16)])
 	except struct.error:
 		print('\u001b[31;1m[Error]\u001b[0m Invalid macro file')

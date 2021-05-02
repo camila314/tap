@@ -117,6 +117,7 @@ def main():
 			break
 
 	audLength = max([c.position for c in clicks])+1
+	print(audLength)
 	mainClip = AudioSegment.silent(duration=round(audLength*1100))
 
 	lastH = None
